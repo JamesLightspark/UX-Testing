@@ -1,230 +1,952 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lightspark • Home Detail</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lightspark • Home Detail</title>
+  <style>
+    :root{
+      --ls-blue:#3d20ae;
+      --ls-green:#3bf49c;
+      --ls-red:#ff5a5f;
+      --ls-yellow:#ffd645;
+      --ls-navy:#1e1f33;
+      --ls-slate:#4a5568;
 
-<style>
-/* =======================
-   LIGHTSPARK HOME DETAIL
-   FULL PRODUCTION EXPORT
-   ======================= */
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --border:#e7ebf3;
+      --muted:#6b7280;
+      --text:#111827;
 
-:root{
-  --ls-blue:#3d20ae;
-  --ls-green:#3bf49c;
-  --ls-red:#ff5a5f;
-  --ls-yellow:#ffd645;
-  --bg:#f6f7fb;
-  --card:#ffffff;
-  --border:#e7ebf3;
-  --text:#111827;
-  --muted:#6b7280;
-  --radius:18px;
-  --shadow:0 14px 34px rgba(17,24,39,.08);
-}
+      --shadow: 0 14px 34px rgba(17,24,39,.08);
+      --radius: 18px;
+    }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 600px at 15% -10%, rgba(255,90,95,.18), transparent 55%),
-    radial-gradient(1200px 600px at 85% -10%, rgba(59,244,156,.16), transparent 55%),
-    linear-gradient(180deg,#fff 0%,var(--bg) 45%);
-}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(255,90,95,.18), transparent 55%),
+        radial-gradient(1200px 600px at 85% -10%, rgba(59,244,156,.16), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 40%, var(--bg) 100%);
+    }
 
-.wrap{max-width:1180px;margin:0 auto;padding:24px}
+    .wrap{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 18px 34px;
+    }
 
-header{
-  position:sticky;top:0;z-index:10;
-  backdrop-filter:blur(10px);
-  background:rgba(246,247,251,.85);
-  border-bottom:1px solid var(--border);
-}
+    /* Header */
+    .topbar{
+      position: sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(246,247,251,.78);
+      border-bottom: 1px solid rgba(231,235,243,.9);
+    }
+    .topbar-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 260px;
+    }
+    .mark{
+      width:38px;height:38px;border-radius:50%;
+      background: conic-gradient(from 90deg, var(--ls-green), #66d8ff, var(--ls-blue), var(--ls-red), var(--ls-yellow), var(--ls-green));
+      box-shadow: 0 10px 24px rgba(61,32,174,.18);
+    }
+    .brand b{
+      font-size: 13px;
+      letter-spacing:.02em;
+    }
+    .brand small{
+      display:block;
+      margin-top:2px;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.01em;
+    }
 
-.header-inner{
-  max-width:1180px;margin:0 auto;
-  padding:14px 24px;
-  display:flex;align-items:center;justify-content:space-between;
-}
+    .page-title{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:1;
+    }
+    .title-pill{
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(61,32,174,.22);
+      background: linear-gradient(180deg, rgba(102,216,255,.25), rgba(61,32,174,.08));
+      box-shadow: 0 10px 22px rgba(17,24,39,.05);
+      font-weight: 800;
+    }
 
-.brand{display:flex;align-items:center;gap:10px}
-.logo{
-  width:38px;height:38px;border-radius:50%;
-  background:conic-gradient(var(--ls-green),#66d8ff,var(--ls-blue),var(--ls-red),var(--ls-yellow),var(--ls-green));
-}
+    .right-meta{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:flex-end;
+      min-width:260px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      color: #4b5563;
+      font-size:12px;
+      box-shadow: 0 10px 22px rgba(17,24,39,.04);
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: var(--ls-green);
+      box-shadow: 0 0 0 4px rgba(59,244,156,.18);
+    }
 
-h1{margin:0;font-size:16px}
+    /* Layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      .brand, .right-meta{min-width: auto}
+      .page-title{justify-content:flex-start}
+    }
 
-.pill{
-  padding:8px 12px;border-radius:999px;
-  border:1px solid var(--border);
-  background:#fff;font-size:12px;
-}
+    /* Cards */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding: 14px 16px 10px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom: 1px solid rgba(231,235,243,.85);
+      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(246,247,251,.55));
+    }
+    .card-h h3{
+      margin:0;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #7c869a;
+      font-weight: 800;
+    }
+    .card-b{
+      padding: 16px;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:20px;
-  margin-top:24px;
-}
+    /* Property Overview */
+    .crumb{
+      font-size:11px;
+      color:#9aa3b2;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom: 10px;
+    }
+    .address{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .address h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.01em;
+    }
+    .address p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size: 12px;
+    }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:18px;
-}
+    .meta-chips{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top: 10px;
+    }
+    .chip{
+      font-size:12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color:#374151;
+    }
 
-.card h2{
-  margin:0 0 10px;
-  font-size:14px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:#6b7280;
-}
+    .overview-row{
+      display:grid;
+      grid-template-columns: 170px 1fr;
+      gap: 14px;
+      margin-top: 14px;
+      align-items:start;
+    }
+    @media (max-width: 520px){
+      .overview-row{grid-template-columns:1fr}
+    }
 
-.address h3{margin:0;font-size:20px}
-.meta{font-size:12px;color:var(--muted)}
+    .home-img{
+      width: 100%;
+      height: 128px;
+      border-radius: 16px;
+      border: 1px solid rgba(231,235,243,.9);
+      background:
+        radial-gradient(120px 90px at 20% 25%, rgba(102,216,255,.55), transparent 65%),
+        radial-gradient(140px 110px at 80% 65%, rgba(59,244,156,.35), transparent 65%),
+        linear-gradient(135deg, rgba(61,32,174,.20), rgba(255,90,95,.18)),
+        linear-gradient(180deg, #0b1023, #1b2342);
+      display:flex; align-items:flex-end; justify-content:flex-start;
+      overflow:hidden;
+      position:relative;
+    }
+    .home-img::after{
+      content:"";
+      position:absolute; inset:-40px -50px auto auto;
+      width: 180px; height: 180px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      filter: blur(1px);
+      transform: rotate(18deg);
+    }
+    .img-label{
+      position:relative;
+      margin: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      color:#eef2ff;
+      background: rgba(17,24,39,.45);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+    }
 
-.score{
-  display:flex;align-items:center;gap:12px;margin-top:10px
-}
-.score strong{font-size:20px}
+    .scoreline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin: 10px 0 10px;
+      flex-wrap:wrap;
+    }
+    .score-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(231,235,243,.9);
+      background: #fff;
+      font-size: 12px;
+      color:#374151;
+    }
+    .score-pill b{
+      font-size: 12px;
+      color:#111827;
+    }
+    .rating{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,214,69,.5);
+      background: rgba(255,214,69,.22);
+      color:#6b4f00;
+    }
 
-.scale{
-  margin-top:10px;height:10px;border-radius:999px;
-  background:linear-gradient(90deg,var(--ls-red),var(--ls-yellow),var(--ls-green));
-  position:relative;
-}
-.marker{
-  position:absolute;top:50%;transform:translate(-50%,-50%);
-  width:14px;height:14px;border-radius:50%;
-  background:#111;border:2px solid #fff;
-}
+    .blurb{
+      margin: 0;
+      color:#4b5563;
+      font-size: 13px;
+      line-height: 1.45;
+    }
 
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.kpi{border:1px solid var(--border);border-radius:14px;padding:12px}
+    /* Energy Scores */
+    .kpis{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 980px){
+      .kpis{grid-template-columns:1fr}
+    }
+    .kpi{
+      border: 1px solid rgba(231,235,243,.95);
+      background: linear-gradient(180deg, #fff, rgba(246,247,251,.55));
+      border-radius: 16px;
+      padding: 12px 12px 10px;
+      box-shadow: 0 12px 26px rgba(17,24,39,.05);
+      position:relative;
+      overflow:hidden;
+    }
+    .kpi::before{
+      content:"";
+      position:absolute;
+      inset: -40px -60px auto auto;
+      width: 160px; height: 160px;
+      border-radius: 999px;
+      background: rgba(61,32,174,.08);
+      transform: rotate(12deg);
+    }
+    .kpi .label{
+      position:relative;
+      font-size: 11px;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      color:#7c869a;
+      font-weight: 800;
+    }
+    .kpi .value{
+      position:relative;
+      margin-top: 6px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing:.01em;
+      color:#111827;
+    }
+    .kpi .sub{
+      position:relative;
+      margin-top: 6px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+      color:#4b5563;
+      font-size: 12px;
+    }
+    .kpi .tag{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background:#fff;
+      font-size: 11px;
+      font-weight: 700;
+      color:#374151;
+    }
 
-.money{font-size:26px;font-weight:800}
-.small{font-size:12px;color:var(--muted)}
+    /* Red->Green scale bar */
+    .scale{
+      position:relative;
+      margin-top: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--ls-red) 0%, #ff8a5b 20%, var(--ls-yellow) 45%, #8cf08a 70%, var(--ls-green) 100%);
+      border: 1px solid rgba(231,235,243,.9);
+      overflow:hidden;
+    }
+    .scale .marker{
+      position:absolute;
+      top:50%;
+      transform: translate(-50%, -50%);
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      background: #111827;
+      box-shadow: 0 6px 16px rgba(17,24,39,.22);
+      border: 2px solid #fff;
+    }
+    .scale-legend{
+      display:flex;
+      justify-content:space-between;
+      margin-top: 8px;
+      font-size: 11px;
+      color:#6b7280;
+    }
 
-.bundle{border:1px solid var(--border);border-radius:14px;padding:12px;margin-top:10px}
-.bundle h4{margin:0}
-.price{font-weight:800}
+    /* Secondary stacked cards left */
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+    }
 
-footer{text-align:center;font-size:11px;color:#9aa3b2;margin:20px}
-@media(max-width:980px){.grid{grid-template-columns:1fr}}
-</style>
+    /* Details list */
+    .details{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .details tr{
+      border-bottom: 1px solid rgba(231,235,243,.85);
+    }
+    .details td{
+      padding: 10px 0;
+      vertical-align:top;
+    }
+    .details td:first-child{
+      color:#64748b;
+      width: 44%;
+      padding-right: 12px;
+    }
+    .details td:last-child{
+      color:#0f172a;
+      font-weight: 700;
+    }
+    .actions{
+      display:flex;
+      justify-content:center;
+      padding-top: 12px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(61,32,174,.22);
+      background: linear-gradient(180deg, rgba(102,216,255,.30), rgba(61,32,174,.10));
+      color: #111827;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing:.02em;
+      cursor:pointer;
+      box-shadow: 0 12px 26px rgba(61,32,174,.14);
+    }
+    .btn:active{transform: translateY(1px)}
+
+    /* Cost + savings */
+    .money{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .money .big{
+      font-size: 26px;
+      font-weight: 1000;
+      letter-spacing: -.02em;
+    }
+    .money .small{
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .money-rows{
+      margin-top: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size: 12px;
+      color:#374151;
+    }
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .row .neg{color: var(--ls-red); font-weight: 900;}
+    .row .pos{color: #15803d; font-weight: 900;}
+    .row .mid{color:#0f172a; font-weight: 900;}
+    .row small{color:#6b7280;font-weight:600}
+
+    /* Upgrade bundles */
+    .bundles{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .bundle{
+      border: 1px solid rgba(231,235,243,.95);
+      background: linear-gradient(180deg, #fff, rgba(246,247,251,.55));
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 12px 26px rgba(17,24,39,.05);
+    }
+    .bundle-h{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .bundle h4{
+      margin:0;
+      font-size: 13px;
+      font-weight: 1000;
+      color:#0f172a;
+    }
+    .bundle .price{
+      font-weight: 1000;
+      color:#0f172a;
+      white-space:nowrap;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing:.10em;
+      text-transform: uppercase;
+      border: 1px solid rgba(61,32,174,.18);
+      background: rgba(61,32,174,.08);
+      color: rgba(61,32,174,1);
+      margin-top: 6px;
+    }
+    .badge.green{
+      border-color: rgba(59,244,156,.35);
+      background: rgba(59,244,156,.14);
+      color:#0b6b3a;
+    }
+    .bundle ul{
+      margin: 10px 0 0;
+      padding-left: 16px;
+      color:#374151;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    /* CTA footer */
+    .cta-row{
+      margin-top: 18px;
+      display:flex;
+      gap: 12px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .cta-note{
+      color:#6b7280;
+      font-size: 12px;
+    }
+    .cta{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(61,32,174,.25);
+      background: linear-gradient(180deg, rgba(102,216,255,.35), rgba(61,32,174,.12));
+      color: #0f172a;
+      font-weight: 1000;
+      font-size: 12px;
+      cursor:pointer;
+      box-shadow: 0 12px 26px rgba(61,32,174,.16);
+      text-decoration:none;
+    }
+    .btn-ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color:#111827;
+      font-weight: 900;
+      font-size: 12px;
+      cursor:pointer;
+      text-decoration:none;
+    }
+
+    /* Two-up "today vs after bundle" */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){
+      .split{grid-template-columns:1fr}
+    }
+
+    .foot{
+      margin-top: 16px;
+      text-align:center;
+      color:#9aa3b2;
+      font-size: 11px;
+      letter-spacing:.02em;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Sticky Header -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <b>Lightspark</b>
+          <small>Home Insights Navigator • Home Energy &amp; Climate Intelligence</small>
+        </div>
+      </div>
 
-<header>
-  <div class="header-inner">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <strong>Lightspark</strong><br>
-        <small class="small">Home Insights Navigator</small>
+      <div class="page-title">
+        <div class="title-pill">Home Detail</div>
+      </div>
+
+      <div class="right-meta">
+        <div class="pill"><span class="dot"></span> Homeowner Energy Report • Demo</div>
       </div>
     </div>
-    <h1>Home Detail</h1>
-    <div class="pill">Homeowner Energy Report • Demo</div>
   </div>
-</header>
 
-<div class="wrap">
-  <div class="grid">
+  <div class="wrap">
+    <div class="grid">
+      <!-- LEFT COLUMN -->
+      <div class="stack">
+        <!-- Property Overview -->
+        <section class="card">
+          <div class="card-b">
+            <div class="crumb">BC / Vancouver / Listing</div>
 
-    <!-- LEFT COLUMN -->
-    <div>
-      <div class="card">
-        <h2>Property Overview</h2>
-        <div class="address">
-          <h3>1234 Main Street</h3>
-          <div class="meta">Vancouver, BC • Detached • 2 storeys + basement</div>
-        </div>
+            <div class="address">
+              <div>
+                <h2>1234 Main Street</h2>
+                <p>Vancouver, BC • Detached home • 2 storeys + basement</p>
+              </div>
+              <div class="meta-chips">
+                <span class="chip">Built: 1918</span>
+                <span class="chip">Approx. area: 200 m² / 400 sq ft</span>
+                <span class="chip">Primary heating: Gas furnace</span>
+              </div>
+            </div>
 
-        <div class="score">
-          <strong>72 / 100</strong>
-          <span class="pill">FAIR</span>
-        </div>
-        <div class="scale">
-          <div class="marker" style="left:72%"></div>
-        </div>
+            <div class="overview-row">
+              <div class="home-img" role="img" aria-label="Property photo">
+                <div class="img-label">Property photo (MLS / fallback)</div>
+              </div>
 
-        <p class="small" style="margin-top:10px">
-          Higher-than-average energy use, moderate climate risk, strong upgrade potential.
-        </p>
+              <div>
+                <div class="scoreline">
+                  <span class="score-pill"><b>72 / 100</b> overall home score</span>
+                  <span class="rating">FAIR</span>
+                </div>
+
+                <div class="scale" aria-label="Overall score scale">
+                  <!-- marker position: 72% -->
+                  <span class="marker" style="left:72%"></span>
+                </div>
+                <div class="scale-legend">
+                  <span>Very Poor</span><span>Poor</span><span>Average</span><span>Good</span><span>Excellent</span>
+                </div>
+
+                <p class="blurb" style="margin-top:12px">
+                  This older Vancouver home has higher-than-average energy use and moderate climate risk, but strong upgrade potential.
+                  Lightspark blends energy, cost, and carbon into a single score so you can see where upgrades matter most.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Home Details -->
+        <section class="card">
+          <div class="card-h">
+            <h3>Home Details</h3>
+            <div class="pill" title="Derived from listing + model inference">
+              Data: listing + inference
+            </div>
+          </div>
+          <div class="card-b">
+            <div style="font-weight:1000; margin-bottom:10px;">How your home uses energy today</div>
+            <table class="details">
+              <tr><td>Heating system</td><td>Gas forced-air furnace</td></tr>
+              <tr><td>Cooling</td><td>No central cooling</td></tr>
+              <tr><td>Hot water</td><td>Gas storage tank</td></tr>
+              <tr><td>Windows</td><td>Mixed single / double pane</td></tr>
+              <tr><td>Attic insulation</td><td>Below recommended level</td></tr>
+            </table>
+
+            <p class="blurb" style="margin-top:12px;">
+              These details help estimate how much energy your home uses today and how much you could save with upgrades.
+            </p>
+
+            <div class="actions">
+              <button class="btn" type="button">Expand list</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Climate Scores -->
+        <section class="card">
+          <div class="card-h">
+            <h3>Climate Scores</h3>
+            <div class="pill" title="Normalized 1–5 (higher = greater risk)">Normalized 1–5</div>
+          </div>
+          <div class="card-b">
+            <div style="font-weight:1000; margin-bottom:10px;">Peril scores</div>
+
+            <!-- Simple 2x2 using KPI styling -->
+            <div class="kpis" style="grid-template-columns:1fr 1fr;">
+              <div class="kpi">
+                <div class="label">Flood</div>
+                <div class="value">4 / 5</div>
+                <div class="scale" style="margin-top:10px;">
+                  <span class="marker" style="left:80%"></span>
+                </div>
+                <div class="scale-legend"><span>Lower</span><span>Higher</span></div>
+              </div>
+
+              <div class="kpi">
+                <div class="label">Surface water</div>
+                <div class="value">5 / 5</div>
+                <div class="scale" style="margin-top:10px;">
+                  <span class="marker" style="left:100%"></span>
+                </div>
+                <div class="scale-legend"><span>Lower</span><span>Higher</span></div>
+              </div>
+
+              <div class="kpi">
+                <div class="label">Wildfire</div>
+                <div class="value">1 / 5</div>
+                <div class="scale" style="margin-top:10px;">
+                  <span class="marker" style="left:20%"></span>
+                </div>
+                <div class="scale-legend"><span>Lower</span><span>Higher</span></div>
+              </div>
+
+              <div class="kpi">
+                <div class="label">Wind / storm</div>
+                <div class="value">3 / 5</div>
+                <div class="scale" style="margin-top:10px;">
+                  <span class="marker" style="left:60%"></span>
+                </div>
+                <div class="scale-legend"><span>Lower</span><span>Higher</span></div>
+              </div>
+            </div>
+
+            <div class="cta-row" style="margin-top:14px;">
+              <div class="cta-note">Missing a peril? Add/adjust climate inputs in your data pipeline.</div>
+              <div class="cta">
+                <a class="btn-primary" href="#" aria-label="Learn more about climate scores">Learn More About Climate Scores</a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <div class="card" style="margin-top:18px">
-        <h2>Home Details</h2>
-        <ul class="small">
-          <li>Heating: Gas forced-air furnace</li>
-          <li>Cooling: None</li>
-          <li>Hot water: Gas storage tank</li>
-          <li>Windows: Mixed single / double pane</li>
-          <li>Attic insulation: Below recommended</li>
-        </ul>
+      <!-- RIGHT COLUMN -->
+      <div class="stack">
+        <!-- Energy Scores Today -->
+        <section class="card">
+          <div class="card-h">
+            <h3>Your Home Energy Scores Today</h3>
+            <div class="pill">Today vs After upgrades</div>
+          </div>
+          <div class="card-b">
+            <div style="font-weight:1000; margin-bottom:10px;">
+              How your home scores today vs after upgrades
+            </div>
+
+            <div class="kpis">
+              <!-- Lightspark Score -->
+              <div class="kpi">
+                <div class="label">Lightspark Score</div>
+                <div class="value">75 / 100</div>
+                <div class="sub">
+                  <span class="tag">Rating: Average</span>
+                  <span><b>After:</b> 90 / 100</span>
+                </div>
+                <div class="scale">
+                  <span class="marker" style="left:75%"></span>
+                </div>
+                <div class="scale-legend">
+                  <span>Very Poor</span><span>Poor</span><span>Average</span><span>Good</span><span>Excellent</span>
+                </div>
+              </div>
+
+              <!-- Energy Use -->
+              <div class="kpi">
+                <div class="label">Energy Use</div>
+                <div class="value">232 GJ / year</div>
+                <div class="sub">
+                  <span class="tag">Rating: Poor</span>
+                  <span><b>After:</b> 190 GJ / year</span>
+                </div>
+                <div class="scale">
+                  <!-- (example) higher use = worse; marker still shows relative today -->
+                  <span class="marker" style="left:35%"></span>
+                </div>
+                <div class="scale-legend">
+                  <span>Very High</span><span>High</span><span>Avg</span><span>Low</span><span>Very Low</span>
+                </div>
+              </div>
+
+              <!-- Carbon -->
+              <div class="kpi">
+                <div class="label">Carbon Emissions</div>
+                <div class="value">12 tCO₂e / year</div>
+                <div class="sub">
+                  <span class="tag">Rating: Poor</span>
+                  <span><b>After:</b> 8 tCO₂e / year</span>
+                </div>
+                <div class="scale">
+                  <span class="marker" style="left:40%"></span>
+                </div>
+                <div class="scale-legend">
+                  <span>Very High</span><span>High</span><span>Avg</span><span>Low</span><span>Very Low</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional: second container requested -->
+            <div class="split">
+              <div class="kpi">
+                <div class="label">You Home Today</div>
+                <div class="value">Score: 75</div>
+                <div class="sub"><span class="tag">Average</span><span>Energy: 232 GJ</span></div>
+                <div class="scale"><span class="marker" style="left:75%"></span></div>
+              </div>
+              <div class="kpi">
+                <div class="label">You Home After Bundle C Upgrade</div>
+                <div class="value">Score: 90</div>
+                <div class="sub"><span class="tag green">Improved</span><span>Energy: 190 GJ</span></div>
+                <div class="scale"><span class="marker" style="left:90%"></span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Energy Costs & Savings -->
+        <section class="card">
+          <div class="card-h">
+            <h3>Energy Costs & Savings</h3>
+            <div class="pill">10-year view</div>
+          </div>
+          <div class="card-b">
+            <div style="font-weight:1000; margin-bottom:8px;">
+              What you spend today vs after upgrades
+            </div>
+
+            <div class="money">
+              <div>
+                <div class="big">$6,000 / year</div>
+                <div class="small">Estimated annual energy spend</div>
+              </div>
+              <div class="small">
+                Electricity: $3,000 • Natural gas: $3,000
+              </div>
+            </div>
+
+            <div class="money-rows">
+              <div class="row"><span>10-year cost if nothing changes</span><span class="neg">$60,000</span></div>
+              <div class="row"><span>10-year cost with recommended upgrades</span><span class="mid">$51,400</span></div>
+              <div class="row"><span>10-year savings</span><span class="pos">$8,600</span></div>
+            </div>
+
+            <p class="blurb" style="margin-top:12px;">
+              Costs are modeled from electricity + natural gas consumption. Upgrade costs come from bundle pricing and savings are
+              calculated in 10-year increments.
+            </p>
+          </div>
+        </section>
+
+        <!-- Upgrade Bundles -->
+        <section class="card">
+          <div class="card-h">
+            <h3>Upgrade Bundles</h3>
+            <div class="pill">Recommendations</div>
+          </div>
+          <div class="card-b">
+            <div style="font-weight:1000; margin-bottom:10px;">
+              Three ways to improve comfort and move toward green
+            </div>
+
+            <div class="bundles">
+              <div class="bundle">
+                <div class="bundle-h">
+                  <div>
+                    <h4>Bundle A — Comfort starter</h4>
+                    <div class="badge">ENTRY RETROFIT</div>
+                  </div>
+                  <div class="price">$21,000</div>
+                </div>
+                <ul>
+                  <li>Air sealing &amp; attic insulation upgrades</li>
+                  <li>Smart thermostat and basic draft sealing</li>
+                </ul>
+              </div>
+
+              <div class="bundle">
+                <div class="bundle-h">
+                  <div>
+                    <h4>Bundle B — Whole-home upgrade</h4>
+                    <div class="badge green">RECOMMENDED</div>
+                  </div>
+                  <div class="price">$32,000</div>
+                </div>
+                <ul>
+                  <li>Ductless heat pump for main living areas</li>
+                  <li>Attic and wall insulation improvements</li>
+                  <li>Targeted air sealing at key leak points</li>
+                </ul>
+              </div>
+
+              <div class="bundle">
+                <div class="bundle-h">
+                  <div>
+                    <h4>Bundle C — Deep retrofit package</h4>
+                    <div class="badge">DEEP RETROFIT</div>
+                  </div>
+                  <div class="price">$58,000</div>
+                </div>
+                <ul>
+                  <li>High-efficiency heat pump and hot water system</li>
+                  <li>High-performance windows and advanced insulation</li>
+                  <li>Maximizes movement toward the green end of the scale</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="cta-row">
+              <div class="cta-note">Your recommendation engine can bundle measures over time (e.g., attic insulation → heat pump).</div>
+              <div class="cta">
+                <a class="btn-ghost" href="#">Get More Recommendations</a>
+                <a class="btn-primary" href="#">Go to Reco Explorer</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="foot">Home Insights Navigator • Demo data only</div>
       </div>
     </div>
-
-    <!-- RIGHT COLUMN -->
-    <div>
-      <div class="card">
-        <h2>Your Energy Scores Today</h2>
-        <div class="kpis">
-          <div class="kpi">
-            <strong>Lightspark</strong><br>75 / 100<br>
-            <small class="small">After upgrades: 90</small>
-          </div>
-          <div class="kpi">
-            <strong>Energy Use</strong><br>232 GJ / yr<br>
-            <small class="small">After: 190</small>
-          </div>
-          <div class="kpi">
-            <strong>Carbon</strong><br>12 tCO₂e / yr<br>
-            <small class="small">After: 8</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:18px">
-        <h2>Energy Costs & Savings</h2>
-        <div class="money">$6,000 / year</div>
-        <div class="small">10-year savings: $8,600</div>
-      </div>
-
-      <div class="card" style="margin-top:18px">
-        <h2>Upgrade Bundles</h2>
-
-        <div class="bundle">
-          <h4>Bundle A — Comfort starter</h4>
-          <div class="price">$21,000</div>
-        </div>
-
-        <div class="bundle">
-          <h4>Bundle B — Whole-home upgrade</h4>
-          <div class="price">$32,000</div>
-        </div>
-
-        <div class="bundle">
-          <h4>Bundle C — Deep retrofit</h4>
-          <div class="price">$58,000</div>
-        </div>
-      </div>
-    </div>
-
   </div>
-</div>
-
-<footer>Lightspark Home Insights Navigator • Demo data only</footer>
-
 </body>
 </html>
